@@ -41,7 +41,7 @@ export function ChrisTable(props: any) {
     // derived signal: take our input data and filter it to only those rows where any field contains the search term
     const FilteredData = () => {   
         if (getFilter() === '') return props.data;
-        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(escapeRegExp(getFilter()).toLowerCase()) > -1))
+        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().indexOf(getFilter().toString().toLowerCase()) > -1))
     };
 
     // now paginate our filtered data
@@ -114,15 +114,15 @@ export function ChrisTableBootstrap(props: any) {
     createEffect(() => {
         if (props.verbose){
             console.log("verbosity: " + props.verbose)
-        console.log("numpages: "+ NumPages());
-        console.log("current page: " + getCurrentPage())
+            console.log("numpages: "+ NumPages());
+            console.log("current page: " + getCurrentPage())
         }
     })
 
     // derived signal: take our input data and filter it to only those rows where any field contains the search term
     const FilteredData = () => {   
         if (getFilter() === '') return props.data;
-        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(getFilter().toLowerCase()) > -1))
+        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().indexOf(getFilter().toLowerCase()) > -1))
     };
 
     // now paginate our filtered data
