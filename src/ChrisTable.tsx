@@ -64,7 +64,7 @@ export function ChrisTable(props: any) {
         </table>
         <button name="page-down" id="page-down" onClick = {() => getCurrentPage() > 0 ? setCurrentPage(getCurrentPage() - 1) : null}>Prev Page</button>
         <button name="page-up" id="page-up" onClick = {() => getCurrentPage() < NumPages() - 1 ? setCurrentPage(getCurrentPage() + 1) : null}>Next Page</button>
-        <div>Page {getCurrentPage() + 1} of {NumPages()}</div>
+        <div>Page {getCurrentPage() + 1} of {NumPages()}, {FilteredData().length} results</div>
         
         </div>)
 }
