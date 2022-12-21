@@ -1,6 +1,14 @@
 import { Table } from "solid-bootstrap";
 import { createEffect, createSignal, For } from "solid-js";
 
+
+// escape input text for regular expressions
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+function escapeRegExp(string: any) {
+    return String(string).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  }
+
+
 export function ChrisTable(props: any) {
 
     const tableKeys = Object.keys(props.data[0]);
@@ -20,16 +28,20 @@ export function ChrisTable(props: any) {
 
     // keep all console logging here!!
     createEffect(() => {
+        if (props.verbose){
+            console.log("verbosity: " + props.verbose)
         console.log("numpages: "+ NumPages());
         console.log("current page: " + getCurrentPage())
+        }
       //  console.log(getFilter())
+      //console.log(escapeRegExp(getFilter()))
        // console.log(JSON.stringify(FilteredData()));
     })
 
     // derived signal: take our input data and filter it to only those rows where any field contains the search term
     const FilteredData = () => {   
         if (getFilter() === '') return props.data;
-        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(getFilter().toLowerCase()) > -1))
+        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(escapeRegExp(getFilter()).toLowerCase()) > -1))
     };
 
     // now paginate our filtered data
@@ -100,10 +112,11 @@ export function ChrisTableBootstrap(props: any) {
 
     // keep all console logging here!!
     createEffect(() => {
+        if (props.verbose){
+            console.log("verbosity: " + props.verbose)
         console.log("numpages: "+ NumPages());
         console.log("current page: " + getCurrentPage())
-      //  console.log(getFilter())
-       // console.log(JSON.stringify(FilteredData()));
+        }
     })
 
     // derived signal: take our input data and filter it to only those rows where any field contains the search term
