@@ -1,6 +1,7 @@
 import { Component, createSignal } from 'solid-js';
 import { faker } from '@faker-js/faker';
 import { ChrisTable, ChrisTableBootstrap } from './ChrisTable';
+import {Container, Tab, Tabs} from 'solid-bootstrap';
 //import fakedata from './fakedata.js'
 
 function makeFakeData() {
@@ -24,12 +25,37 @@ function makeFakeData() {
     
     const App: Component = () => {
       return (
-        <div>
+        <Container>
+        <h1>Fast, Fancy, Searchable, and Paginated Tables in SolidJS</h1>
+
         <button name="button-newdata" id="button-newdata" onClick={() => setData(makeFakeData())}>Generate new data</button>
-        <ChrisTable data={getData()} />
-        <hr/>
-        <ChrisTableBootstrap data={getData()} />
-        </div>
+        
+        <Tabs defaultActiveKey="bootstrap-table" id="sample-tabs"> 
+          <Tab eventKey="About" title="About">
+          <div><p>
+          This is a working example of a generic table-making function in SolidJS. It uses bootstrap (optionally) and otherwise has no dependinces beyond solid-js.</p>
+          <p>Features:</p>
+          <ul>
+            <li>Pagination (defaults to 10 items per page, could be made optional)</li>
+            <li>Pretty fast searching and filtering</li>
+            <li>Handles changing input data properly</li>
+          </ul>
+          <p>Things that could be better:</p>
+          <li>Customizable header names</li>
+          <li>Customizable page size</li>
+          <li>Customizable table ids and/or classes for styling</li>
+          </div>
+          </Tab>
+          <Tab eventKey="bootstrap-table" title="Bootstrap Table">
+
+            <ChrisTableBootstrap data={getData()} verbose={false} />
+          </Tab>
+
+          <Tab eventKey="boring-table" title="Boring Table">
+            <ChrisTable data={getData()} />
+          </Tab>
+        </Tabs>
+        </Container>
         );
       };
       
