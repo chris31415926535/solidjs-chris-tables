@@ -1,30 +1,34 @@
 import { Component, createSignal } from 'solid-js';
 import { faker } from '@faker-js/faker';
-import logo from './logo.svg';
-import styles from './App.module.css';
 import { ChrisTable } from './ChrisTable';
-import { searchForWorkspaceRoot } from 'vite';
+//import fakedata from './fakedata.js'
 
-let fakedata = [];
-for (let i=0; i < 100; i++){
-fakedata.push(
-  {
-    name: faker.name.fullName(),
-    favColour: faker.color.human(),
-    job: faker.company.catchPhrase()
-  }
-)
+function makeFakeData() {
+  let fakedata = [];
+  for (let i=0; i < 100; i++){
+    fakedata.push(
+      {
+        name: faker.name.fullName(),
+        favColour: faker.color.human(),
+        job: faker.company.catchPhrase()
+      }
+      )}
+      return fakedata
+    }
 
-}
-
-let [getData, setData] = createSignal(fakedata);
-
-const App: Component = () => {
-  return (
-    <div>
-      <ChrisTable data={getData()} />
-    </div>
-  );
-};
-
-export default App;
+    let fakedata = makeFakeData();
+    
+    console.log(JSON.stringify(fakedata))
+    
+    let [getData, setData] = createSignal(makeFakeData());
+    
+    const App: Component = () => {
+      return (
+        <div>
+        <button name="button-newdata" id="button-newdata" onClick={() => setData(makeFakeData())}>Generate new data</button>
+        <ChrisTable data={getData()} />
+        </div>
+        );
+      };
+      
+      export default App;

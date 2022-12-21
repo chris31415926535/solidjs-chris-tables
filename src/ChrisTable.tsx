@@ -25,16 +25,25 @@ export function ChrisTable(props: any) {
        // console.log(JSON.stringify(FilteredData()));
     })
 
+    // derived signal: take our input data and filter it to only those rows where any field contains the search term
     const FilteredData = () => {   
         if (getFilter() === '') return props.data;
         return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(getFilter().toLowerCase()) > -1))
     };
 
+    // now paginate our filtered data
     const PaginatedData = () => {
         let tempVar = FilteredData();
         let tempPaginated = tempVar.slice(getCurrentPage() * pageSize, getCurrentPage() * pageSize + pageSize);
         return tempPaginated;
     };
+
+    // set page to 0 if input data changes
+    // this works but is apparently bad practice: you're not supposed to set signals inside effects!!
+    createEffect( () => {
+        let x = props.data;
+        setCurrentPage(0);
+    })
 
     return(<div>
         <span>
