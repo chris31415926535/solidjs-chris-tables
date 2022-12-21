@@ -27,7 +27,7 @@ export function ChrisTable(props: any) {
 
     const FilteredData = () => {   
         if (getFilter() === '') return props.data;
-        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).search(getFilter()) > -1))
+        return props.data.filter((e1: any) => Object.values(e1).some((e2: any) => String(e2).toLowerCase().search(getFilter().toLowerCase()) > -1))
     };
 
     const PaginatedData = () => {
