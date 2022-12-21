@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { faker } from '@faker-js/faker';
-import { ChrisTable } from './ChrisTable';
+import { ChrisTable, ChrisTableBootstrap } from './ChrisTable';
 //import fakedata from './fakedata.js'
 
 function makeFakeData() {
@@ -16,9 +16,9 @@ function makeFakeData() {
       return fakedata
     }
 
-    let fakedata = makeFakeData();
+    //let fakedata = makeFakeData();
     
-    console.log(JSON.stringify(fakedata))
+   // console.log(JSON.stringify(fakedata))
     
     let [getData, setData] = createSignal(makeFakeData());
     
@@ -27,6 +27,8 @@ function makeFakeData() {
         <div>
         <button name="button-newdata" id="button-newdata" onClick={() => setData(makeFakeData())}>Generate new data</button>
         <ChrisTable data={getData()} />
+        <hr/>
+        <ChrisTableBootstrap data={getData()} />
         </div>
         );
       };
