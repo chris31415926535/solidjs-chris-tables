@@ -1,12 +1,12 @@
 import { Component, createSignal } from 'solid-js';
 import { faker } from '@faker-js/faker';
-import { ChrisTable, ChrisTableBootstrap } from './ChrisTable';
+import { ChrisTable, ChrisTableBootstrap, ChrisTableBootstrap2 } from './ChrisTable';
 import {Container, Tab, Tabs} from 'solid-bootstrap';
 //import fakedata from './fakedata.js'
 
 function makeFakeData() {
   let fakedata = [];
-  for (let i=0; i < 100; i++){
+  for (let i=0; i < 500; i++){
     fakedata.push(
       {
         name: faker.name.fullName(),
@@ -48,7 +48,7 @@ function makeFakeData() {
           </Tab>
           <Tab eventKey="bootstrap-table" title="Bootstrap Table">
 
-            <ChrisTableBootstrap data={getData()} verbose={false} />
+            <ChrisTableBootstrap2 data={getData()} verbose={true} />
           </Tab>
 
           <Tab eventKey="boring-table" title="Boring Table">
