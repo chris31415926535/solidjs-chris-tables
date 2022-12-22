@@ -1,6 +1,6 @@
 import { Component, createSignal } from 'solid-js';
 import { faker } from '@faker-js/faker';
-import { ChrisTable, ChrisTableBootstrap, ChrisTableBootstrap2 } from './ChrisTable';
+import { ChrisTable, ChrisTableBootstrap } from './ChrisTable';
 import {Container, Tab, Tabs} from 'solid-bootstrap';
 //import fakedata from './fakedata.js'
 
