@@ -48,7 +48,7 @@ function makeFakeData() {
           </Tab>
           <Tab eventKey="bootstrap-table" title="Bootstrap Table">
 
-            <ChrisTableBootstrap2 data={getData()} verbose={true} />
+            <ChrisTableBootstrap data={getData()} verbose={true} />
           </Tab>
 
           <Tab eventKey="boring-table" title="Boring Table">
