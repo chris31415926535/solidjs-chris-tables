@@ -8,16 +8,34 @@ function escapeRegExp(string: any) {
     return String(string).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
+interface TableOptions {
+    columns?: string[]
+    columnNames?: string[]
+    pageSize?: number
+}
 
-export function ChrisTable(props: any) {
+interface TableData{
+   [key: string]: any;
+}
     
-    const tableKeys = Object.keys(props.data[0]);
-    const numCols = tableKeys.length;
-    const numRows = props.data.length;
+export function ChrisTable(props: {data: TableData, options?: TableOptions, verbose: boolean}) {
     
-    // trying pagination?
+    // handle optional options
     let pageSize = 10;
-    let page = 0;
+    let tableKeys = Object.keys(props.data[0]);
+    let columnNames = tableKeys;
+    if (props.options === undefined) {
+        // PLACEHOLDER for additional stuff if options are NOT provided
+    } else {
+        if (props.options.pageSize)  pageSize = props.options.pageSize;
+        if (props.options.columns) {
+            // if columns are provided, as an interim step set the columnNames to only include those columns
+            tableKeys = props.options.columns;
+            columnNames = tableKeys;
+        }
+        if (props.options.columnNames) columnNames = props.options.columnNames;
+    }
+
     let [getCurrentPage, setCurrentPage] = createSignal(0);
     
     let NumPages = () => {
@@ -67,8 +85,8 @@ export function ChrisTable(props: any) {
         <table>
         <thead>
         <tr>
-        <For each={tableKeys}>{(tableKey, i) => 
-            <th>{tableKey}</th>
+        <For each={columnNames}>{(columnName, i) => 
+            <th>{columnName}</th>
         }</For>
         </tr>
         </thead>
@@ -92,15 +110,29 @@ export function ChrisTable(props: any) {
     }
     
     
-    export function ChrisTableBootstrap(props: any) {
+    export function ChrisTableBootstrap(props: {data: TableData, options?: TableOptions, verbose?: boolean}) {
         
-        const tableKeys = Object.keys(props.data[0]);
+            // handle optional options
+    let pageSize = 10;
+    let tableKeys = Object.keys(props.data[0]);
+    let columnNames = tableKeys;
+    if (props.options === undefined) {
+        // PLACEHOLDER for additional stuff if options are NOT provided
+    } else {
+        if (props.options.pageSize)  pageSize = props.options.pageSize;
+        if (props.options.columns) {
+            // if columns are provided, as an interim step set the columnNames to only include those columns
+            tableKeys = props.options.columns;
+            columnNames = tableKeys;
+        }
+        if (props.options.columnNames) columnNames = props.options.columnNames;
+    }
         
         
         // for convenience, console logging here when possible!!
         createEffect(() => {
             if (props.verbose){
-                
+
             }
         })
         
@@ -110,8 +142,7 @@ export function ChrisTable(props: any) {
         
         // sorted data is stored in a derived signal, fed by the input data (props.data) and the getSortData() signal
         const SortedDataDerived = () => {
-            //console.log("SortedDataDerived() fired")
-            
+             
             // start with the provided data
             let tempvar = props.data.slice();
             
@@ -156,7 +187,6 @@ export function ChrisTable(props: any) {
         };
         
         // next we paginate our sorted and filtered data
-        let pageSize = 10;
         let [getCurrentPage, setCurrentPage] = createSignal(0);
         
         let NumPages = () => {
@@ -197,8 +227,8 @@ export function ChrisTable(props: any) {
             <Table striped bordered hover>
             <thead>
             <tr>
-            <For each={tableKeys}>{(tableKey, i) => 
-                <th onClick={() => {setSortData({sortColumn: tableKey, trigger: Date.now(), sortDirection: !getSortData().sortDirection }); }}>{tableKey}</th>
+            <For each={columnNames}>{(columnName, i) => 
+                <th onClick={() => {setSortData({sortColumn: tableKeys[i()], trigger: Date.now(), sortDirection: !getSortData().sortDirection }); }}>{columnName}</th>
             }</For>
             </tr>
             </thead>
@@ -213,10 +243,10 @@ export function ChrisTable(props: any) {
             
             </tbody>
             </Table>
-            <button name="page-first" id="page-first" onClick = {() => setCurrentPage(0)}>⯇⯇ First Page</button>
-            <button name="page-down" id="page-down" onClick = {() => getCurrentPage() > 0 ? setCurrentPage(getCurrentPage() - 1) : null}>⯇ Prev Page</button>
-            <button name="page-up" id="page-up" onClick = {() => getCurrentPage() < NumPages() - 1 ? setCurrentPage(getCurrentPage() + 1) : null}>Next Page ⯈</button>
-            <button name="page-last" id="page-last" onClick = {() => setCurrentPage(NumPages()-1)}>Last Page ⯈⯈</button>
+            <button name="page-first" id="page-first" onClick = {() => setCurrentPage(0)}>{"\u2bc7"}{"\u2bc7"} First Page</button>
+            <button name="page-down" id="page-down" onClick = {() => getCurrentPage() > 0 ? setCurrentPage(getCurrentPage() - 1) : null}>{"\u2bc7"} Prev</button>
+            <button name="page-up" id="page-up" onClick = {() => getCurrentPage() < NumPages() - 1 ? setCurrentPage(getCurrentPage() + 1) : null}>Next {"\u2bc8"}</button>
+            <button name="page-last" id="page-last" onClick = {() => setCurrentPage(NumPages()-1)}>Last Page {"\u2bc8"}{"\u2bc8"}</button>
             <div>Page {getCurrentPage() + 1} of {NumPages()}, {FilteredData().length} results</div>
             </div>)
         }

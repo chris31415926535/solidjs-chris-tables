@@ -26,7 +26,7 @@ function makeFakeData() {
     const App: Component = () => {
       return (
         <Container>
-        <h1>Fast, Fancy, Searchable, and Paginated Tables in SolidJS</h1>
+        <h1>Fast, Fancy, Searchable, Sortable, and Paginated Tables in SolidJS</h1>
 
         <button name="button-newdata" id="button-newdata" onClick={() => setData(makeFakeData())}>Generate new data</button>
         
@@ -39,6 +39,10 @@ function makeFakeData() {
             <li>Pagination (defaults to 10 items per page, could be made optional)</li>
             <li>Pretty fast searching and filtering</li>
             <li>Handles changing input data properly</li>
+            <li>Choose some or all columns</li>
+            <li>Customizable column headers</li>
+            <li>Click column headings to sort</li>
+            <li>Customizable page size</li>
           </ul>
           <p>Things that could be better:</p>
           <li>Customizable header names</li>
@@ -48,11 +52,11 @@ function makeFakeData() {
           </Tab>
           <Tab eventKey="bootstrap-table" title="Bootstrap Table">
 
-            <ChrisTableBootstrap data={getData()} verbose={true} />
+            <ChrisTableBootstrap data={getData()} verbose={true} options={{columnNames: ["Name!!", "Favourite Colour", "Job Description"]}} />
           </Tab>
 
           <Tab eventKey="boring-table" title="Boring Table">
-            <ChrisTable data={getData()} />
+            <ChrisTable data={getData()} options={{pageSize: 20, columnNames: ["Name!!", "Favourite Colour", "Job Description"]} }/>
           </Tab>
         </Tabs>
         </Container>
