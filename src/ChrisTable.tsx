@@ -110,6 +110,10 @@ export function ChrisTable(props: {data: TableData, options?: TableOptions, verb
     }
     
     
+
+
+
+
     export function ChrisTableBootstrap(props: {data: TableData, options?: TableOptions, verbose?: boolean}) {
         
             // handle optional options
@@ -228,7 +232,11 @@ export function ChrisTable(props: {data: TableData, options?: TableOptions, verb
             <thead>
             <tr>
             <For each={columnNames}>{(columnName, i) => 
-                <th onClick={() => {setSortData({sortColumn: tableKeys[i()], trigger: Date.now(), sortDirection: !getSortData().sortDirection }); }}>{columnName}</th>
+                <th onClick={() => {setSortData({sortColumn: tableKeys[i()], trigger: Date.now(), sortDirection: !getSortData().sortDirection }); }}>
+                    {(getSortData().sortColumn === tableKeys[i()] ?
+                    (getSortData().sortDirection ? "▲" : "▼")
+                    : "") + columnName }
+                    </th>
             }</For>
             </tr>
             </thead>
