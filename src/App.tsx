@@ -36,18 +36,18 @@ function makeFakeData() {
           This is a working example of a generic table-making function in SolidJS. It uses bootstrap (optionally) and otherwise has no dependinces beyond solid-js.</p>
           <p>Features:</p>
           <ul>
-            <li>Pagination (defaults to 10 items per page, could be made optional)</li>
-            <li>Pretty fast searching and filtering</li>
+            <li>Pagination (defaults to 10 items per page, adjustable with code options)</li>
+            <li>Searching/filtering</li>
             <li>Handles changing input data properly</li>
             <li>Choose some or all columns</li>
             <li>Customizable column headers</li>
-            <li>Click column headings to sort</li>
+            <li>Click column headings to sort, with fun indicators</li>
             <li>Customizable page size</li>
           </ul>
           <p>Things that could be better:</p>
-          <li>Customizable header names</li>
-          <li>Customizable page size</li>
-          <li>Customizable table ids and/or classes for styling</li>
+          <li>Dynamic customizable page sizes</li>
+          <li>Customizable table ids and/or classes for styling?</li>
+          <li>Column widths can jump around when sorting/paging</li>
           </div>
           </Tab>
           <Tab eventKey="bootstrap-table" title="Bootstrap Table">
